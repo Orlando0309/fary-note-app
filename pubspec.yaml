@@ -1,7 +1,7 @@
 name: canneapp
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.0+2
 
 environment:
   sdk: ^3.7.2
@@ -16,6 +16,11 @@ dependencies:
   shared_preferences: ^2.5.3
   uuid: ^4.5.1
   flutter_launcher_icons: ^0.14.3
+  mobile_scanner: ^6.0.10
+  qr_flutter: ^4.1.0
+  http: ^1.3.0
+  shelf: ^1.4.2
+  network_info_plus: ^6.1.4
 
 dev_dependencies:
   flutter_test:

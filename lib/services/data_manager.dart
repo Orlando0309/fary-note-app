@@ -12,6 +12,12 @@ class DataManager {
   static const String _dailyRecordKey = 'daily_records';
   static const String _expenseKey = 'expenses';
   
+  // Accesseurs publics pour les clés
+  static String get cartKey => _cartKey;
+  static String get stockKey => _stockKey;
+  static String get dailyRecordKey => _dailyRecordKey;
+  static String get expenseKey => _expenseKey;
+  
   static final DataManager _instance = DataManager._internal();
   final Uuid _uuid = Uuid();
 

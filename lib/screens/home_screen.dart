@@ -7,10 +7,9 @@ import 'stock_screen.dart';
 import 'expense_screen.dart';
 import 'dashboard_screen.dart';
 import 'daily_record_screen.dart';
+import 'qr_share_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -79,8 +78,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       child: ClipOval(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            "assets/images/cane.png",
+                          child: Image.network(
+                            "https://pixabay.com/get/g8489b41f4618ce5af3a75227878220170cdbf0d49bf561b7a5220f429062d81233aa222d788113986e7e84a1eeb8524bbc9a44112f51c9583bcab18a410011e9_1280.jpg",
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -109,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 ),
               ),
               
-              // Vérifier si les données sont en cours de chargement
+              // Vu00e9rifier si les donnu00e9es sont en cours de chargement
               Consumer<AppState>(
                 builder: (context, appState, child) {
                   if (appState.isLoading) {
@@ -218,13 +217,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           );
                                         },
                                       ),
+                                     
                                       _buildMenuItem(
                                         context,
-                                        title: 'Rapports',
-                                        icon: Icons.bar_chart,
-                                        color: Colors.teal,
+                                        title: 'Partage QR',
+                                        icon: Icons.qr_code,
+                                        color: Colors.deepPurple,
                                         onTap: () {
-                                          // Navigation vers les rapports
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => QrShareScreen()),
+                                          );
                                         },
                                       ),
                                     ],

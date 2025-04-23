@@ -409,14 +409,17 @@ Widget _buildExpensePieChart(Map<String, double> expensesByCategory) {
 
   return Column(
     children: [
-      SizedBox(
-        height: 200,
-        child: PieChart(
-          PieChartData(
-            sections: sections,
-            centerSpaceRadius: 40,
-            sectionsSpace: 2,
-            startDegreeOffset: -90,
+      ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: 200),
+        child: SizedBox(
+          height: 200,
+          child: PieChart(
+            PieChartData(
+              sections: sections,
+              centerSpaceRadius: 40,
+              sectionsSpace: 2,
+              startDegreeOffset: -90,
+            ),
           ),
         ),
       ),
