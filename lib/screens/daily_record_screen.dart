@@ -877,8 +877,8 @@ class _DailyRecordScreenState extends State<DailyRecordScreen> with SingleTicker
       builder: (context) => AlertDialog(
         title: Text('Confirmer la suppression'),
         content: Text(record.soldQuantity > 0
-            ? 'u00cates-vous su00fbr de vouloir supprimer cet enregistrement de vente pour ${cart?.name ?? "chariot inconnu"} ?'
-            : 'u00cates-vous su00fbr de vouloir supprimer cette attribution pour ${cart?.name ?? "chariot inconnu"} ?'),
+            ? 'êtes-vous sûr de vouloir supprimer cet enregistrement de vente pour ${cart?.name ?? "chariot inconnu"} ?'
+            : 'êtes-vous sûr de vouloir supprimer cette attribution pour ${cart?.name ?? "chariot inconnu"} ?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

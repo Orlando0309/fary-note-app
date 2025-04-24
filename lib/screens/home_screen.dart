@@ -10,6 +10,7 @@ import 'daily_record_screen.dart';
 import 'qr_share_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 10,
                             spreadRadius: 1,
                           ),
@@ -78,8 +79,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       child: ClipOval(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Image.network(
-                            "https://pixabay.com/get/g8489b41f4618ce5af3a75227878220170cdbf0d49bf561b7a5220f429062d81233aa222d788113986e7e84a1eeb8524bbc9a44112f51c9583bcab18a410011e9_1280.jpg",
+                          child: Image.asset(
+                            "assets/images/cane.png",
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -99,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         Text(
                           'Gestion de votre business',
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                           ),
                         ),
                       ],
@@ -263,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               blurRadius: 10,
               spreadRadius: 1,
             ),
@@ -275,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(

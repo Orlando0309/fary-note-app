@@ -514,7 +514,7 @@ class _StockScreenState extends State<StockScreen> with SingleTickerProviderStat
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Confirmer la suppression'),
-        content: Text('u00cates-vous su00fbr de vouloir supprimer cet arrivage de ${stock.quantity.toStringAsFixed(2)} kg ?'),
+        content: Text('êtes-vous sûr de vouloir supprimer cet arrivage de ${stock.quantity.toStringAsFixed(2)} kg ?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

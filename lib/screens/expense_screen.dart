@@ -528,7 +528,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> with SingleTickerProvider
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Confirmer la suppression'),
-        content: Text('u00cates-vous su00fbr de vouloir supprimer cette dépense de ${NumberFormat('#,##0.00', 'fr_FR').format(expense.amount)} F ?'),
+        content: Text('êtes-vous sûr de vouloir supprimer cette dépense de ${NumberFormat('#,##0.00', 'fr_FR').format(expense.amount)} F ?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

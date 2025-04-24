@@ -350,7 +350,7 @@ class _CartScreenState extends State<CartScreen> with SingleTickerProviderStateM
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Confirmer la suppression'),
-        content: Text('u00cates-vous su00fbr de vouloir supprimer le chariot "${cart.name}" ?'),
+        content: Text('êtes-vous sûr de vouloir supprimer le chariot "${cart.name}" ?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
