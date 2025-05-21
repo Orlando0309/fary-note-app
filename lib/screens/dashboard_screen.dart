@@ -5,6 +5,70 @@ import 'package:fl_chart/fl_chart.dart';
 import '../providers/app_state.dart';
 import '../theme.dart';
 
+import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
+
+class DateRangePickerDialog extends StatefulWidget {
+  final DateTime initialFirstDate;
+  final DateTime initialLastDate;
+  final DateTime firstDate;
+  final DateTime lastDate;
+
+  const DateRangePickerDialog({
+    super.key,
+    required this.initialFirstDate,
+    required this.initialLastDate,
+    required this.firstDate,
+    required this.lastDate,
+  });
+
+  @override
+  State<DateRangePickerDialog> createState() => _DateRangePickerDialogState();
+}
+
+class _DateRangePickerDialogState extends State<DateRangePickerDialog> {
+  late dp.DatePeriod _selectedPeriod;
+
+  @override
+  void initState() {
+    super.initState();
+    // Cap initialLastDate to not exceed lastDate
+    final cappedLastDate = widget.initialLastDate.isAfter(widget.lastDate)
+        ? widget.lastDate
+        : widget.initialLastDate;
+    _selectedPeriod = dp.DatePeriod(widget.initialFirstDate, cappedLastDate);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Sélectionner une période'),
+      content: SizedBox(
+        width: 320,
+        height: 320,
+        child: dp.RangePicker(
+          selectedPeriod: _selectedPeriod,
+          onChanged: (dp.DatePeriod newPeriod) {
+            setState(() {
+              _selectedPeriod = newPeriod;
+            });
+          },
+          firstDate: widget.firstDate,
+          lastDate: widget.lastDate,
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Annuler'),
+        ),
+        ElevatedButton(
+          onPressed: () => Navigator.of(context).pop(_selectedPeriod),
+          child: Text('OK'),
+        ),
+      ],
+    );
+  }
+}
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -41,18 +105,44 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
     super.dispose();
   }
 
+  Future<void> _selectCustomDateRange(BuildContext context) async {
+    
+  final now = DateTime.now();
+  final cappedEndDate = _endDate.isAfter(now) ? now : _endDate; // Cap _endDate to now
+  final lastDate = DateTime(now.year, now.month, now.day, 23, 59, 59); // End of current day
+
+  final dp = await showDialog(
+    context: context,
+    builder: (context) => DateRangePickerDialog(
+      initialFirstDate: _startDate,
+      initialLastDate: cappedEndDate, // Use capped end date
+      firstDate: DateTime(2000),
+      lastDate: lastDate, // Allow selection up to end of today
+    ),
+  );
+
+  if (dp != null && mounted) {
+    setState(() {
+      _selectedPeriod = 'Personnalisé';
+      _startDate = DateTime(dp.start.year, dp.start.month, dp.start.day);
+      _endDate = DateTime(dp.end.year, dp.end.month, dp.end.day, 23, 59, 59);
+    });
+  }
+}
   void _setPeriod(String period) {
+    if (period == 'Personnalisé') {
+    _selectCustomDateRange(context);
+  } else {
     setState(() {
       _selectedPeriod = period;
       final now = DateTime.now();
-      
+
       switch (period) {
         case 'Aujourd\'hui':
           _startDate = DateTime(now.year, now.month, now.day);
           _endDate = DateTime(now.year, now.month, now.day, 23, 59, 59);
           break;
         case 'Semaine':
-          // Du lundi au dimanche
           _startDate = now.subtract(Duration(days: now.weekday - 1));
           _startDate = DateTime(_startDate.year, _startDate.month, _startDate.day);
           _endDate = _startDate.add(Duration(days: 6, hours: 23, minutes: 59, seconds: 59));
@@ -67,6 +157,7 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
           break;
       }
     });
+  }
   }
 
   @override
@@ -113,6 +204,8 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                               _buildPeriodChip('Mois'),
                               SizedBox(width: 8),
                               _buildPeriodChip('Année'),
+                              SizedBox(width: 8),
+                              _buildPeriodChip('Personnalisé'),
                             ],
                           ),
                         ),
