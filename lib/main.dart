@@ -5,6 +5,7 @@ import 'providers/app_state.dart';
 import 'screens/home_screen.dart';
 import 'theme.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   // dfInitMessageListener();
@@ -27,7 +28,17 @@ class MyApp extends StatelessWidget {
         title: 'Fary Note',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
-        home: SplashScreen(),
+        locale: const Locale('fr', 'FR'), // Set default locale to French
+        supportedLocales: const [
+          Locale('fr', 'FR'), // Support French
+          Locale('en', 'US'), // Optional fallback to English
+        ],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate, // For Material widgets
+          GlobalWidgetsLocalizations.delegate,  // For general widget localization
+          GlobalCupertinoLocalizations.delegate, // Optional for Cupertino widgets
+        ],
+        home: const SplashScreen(), // Ensure SplashScreen is imported and const if stateless
       ),
     );
   }
